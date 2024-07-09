@@ -1,0 +1,11 @@
+{% extends "task.html" %}
+
+{% block content %}
+<h2>変更</h2>
+<a href="{% url 'todolist:tasks' %}">戻る</a>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">変更</button>
+</form>
+{% endblock %}

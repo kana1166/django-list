@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>ToDoリスト</title>
+</head>
+<body>
+    <h1>ToDoリスト</h1>
+    <form method="post" action="{% url 'todolist:create-task' %}">
+        {% csrf_token %}
+        <input type="text" name="title">
+        <button type="submit">追加</button>
+    </form>
+    <table>
+        <tr>
+            <th>タスク名</th>
+        </tr>
+        {% for task in tasks %}
+        <tr>
+            
+            <td>{{ task.title }}</td>
+            <td><form method="post" action="{% url 'todolist:update-task' task.id %}">
+                {% csrf_token %}
+                <input type="text" name="title">
+                <button type="submit">変更</button>
+            </form></td>
+            <td><form method="post" action="{% url 'todolist:delete-task' task.id %}">
+                {% csrf_token %}
+                <button type="submit">削除</button>
+            </form></td>
+            
+           
+        </tr>
+        {%endfor%}
+    </table>
+  
+</body>
+   
+</html>
