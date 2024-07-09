@@ -122,3 +122,50 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    # ロガーの設定
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+        # todolistアプリケーションのログ設定
+        'todolist': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+    },
+    # ハンドラの設定
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'dev'
+        },
+    },
+    # フォーマッタの設定
+    'formatters': {
+        'dev': {
+            'format': '\t'.join([
+                      '%(asctime)s',
+                      ' [%(levelname)s]',
+                      ' %(pathname)s:(Line%(lineno)d)',
+                      ' %(message)s'
+                      ])
+        },
+    },
+}
+
+#静的ファイル
+import os
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATIC_URL = '/static/'
+
+CORS_ALLOW_ALL_ORIGINS = True  # すべてのオリジンからのアクセスを許可
